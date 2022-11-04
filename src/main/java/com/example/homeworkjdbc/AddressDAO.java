@@ -9,9 +9,9 @@ public interface AddressDAO {
 
     void deleteAddressById(int id) throws SQLException;
 
-     Address getAddressById(int id) throws SQLException;
+    Address getAddressById(int id) throws SQLException;
 
-     List<Address> getAllAddresses() throws SQLException;
+    List<Address> getAllAddresses() throws SQLException;
 
     void updateAddressById(int id, Address address) throws SQLException;
 }

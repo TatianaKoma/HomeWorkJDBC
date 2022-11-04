@@ -26,23 +26,6 @@ public class JdbcRunner {
                     + "address_id INT NOT NULL,"
                     + "FOREIGN KEY (address_id) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE )";
 
-    private static final String INSERT_INTO_ADDRESS_TABLE =
-            "INSERT INTO address (postal_code, country, city, address_line)"
-                    + "VALUES "
-                    + "('61100', 'Ukraine', 'Kharkiv', 'Shevchenko st. 22-54'),"
-                    + "('01008', 'Ukraine', 'Kyiv', 'Grushevskyi st. 12/2'),"
-                    + "('79120', 'Ukraine', 'Lviv', 'Azovska st. 19-135')";
-
-    private static final String INSERT_INTO_CITIZEN_TABLE =
-            "INSERT INTO citizen (name,surname, phone, address_id)"
-                    + "VALUES "
-                    + "('Dmytro', 'Bondarenko', '0996635348',1),"
-                    + "('Olena', 'Bondarenko', '0676635348', 1),"
-                    + "('Taras', 'Koval', '0986637748',2),"
-                    + "('Iryna', 'Koval', '0686635750', 2),"
-                    + "('Orest', 'Shvets', '0986637748',3),"
-                    + "('Ivanna', 'Shvets', '0668735757', 3),"
-                    + "('Oleg', 'Shvets', null, 3)";
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException {
@@ -54,8 +37,6 @@ public class JdbcRunner {
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(CREATE_TABLE_ADDRESS_QUERY);
             statement.executeUpdate(CREATE_TABLE_CITIZEN_QUERY);
-            statement.executeUpdate(INSERT_INTO_ADDRESS_TABLE);
-            statement.executeUpdate(INSERT_INTO_CITIZEN_TABLE);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -166,7 +147,7 @@ public class JdbcRunner {
                     System.out.println("Type id of citizen");
                     int userId = checkUserChoice(SCANNER.nextLine());
                     Citizen citizen = citizenDAO.getCitizenById(userId);
-                    if (citizen == null) {
+                    if (citizen.getId() == 0) {
                         System.out.println("This citizen doesn't exist\n");
                         break;
                     }
